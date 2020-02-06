@@ -16,6 +16,7 @@ namespace obama_experimenting_v1._0.Components
 
         private int _program;
         private int _vertexArray;
+        private double _time;
 
         public MainWindow() :base(1280, 720, GraphicsMode.Default, "asdf", GameWindowFlags.Default, DisplayDevice.Default, 4, 0, GraphicsContextFlags.ForwardCompatible)
         {
@@ -53,6 +54,7 @@ namespace obama_experimenting_v1._0.Components
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
+            _time += e.Time;
             Title = $"(Vsync: {VSync}) FPS: {1f / e.Time:0}";
 
             Color4 backColor;
@@ -65,11 +67,21 @@ namespace obama_experimenting_v1._0.Components
 
             GL.UseProgram(_program);
 
+            // add some attributes for shaders here (:
+            GL.VertexAttrib1(0, _time);
+            Vector4 position;
+            position.X = (float)Math.Sin(_time) * 0.5f;
+            position.Y = (float)Math.Cos(_time) * 0.5f;
+            position.Z = 0.0f;
+            position.W = 1.0f;
+            GL.VertexAttrib4(1, position);
+
             GL.DrawArrays(PrimitiveType.Points, 0, 1);
             GL.PointSize(10);
             SwapBuffers();
 
             base.OnRenderFrame(e);
+            Console.WriteLine(_time);
         }
 
         private void HandleKeyboard()
@@ -99,6 +111,7 @@ namespace obama_experimenting_v1._0.Components
             GL.DetachShader(program, fragmentShader);
             GL.DeleteShader(vertexShader);
             GL.DeleteShader(fragmentShader);
+
             return program;
         }
 
