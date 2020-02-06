@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2A28EBC5-1971-47B3-AE27-BFBBEBD378C5}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>obomba_experimenting</RootNamespace>
-    <AssemblyName>obomba_experimenting</AssemblyName>
+    <ProjectGuid>{C61FA21A-E83D-4FB8-A5C2-885A37FEE843}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>obama_experimenting_v1._0</RootNamespace>
+    <AssemblyName>obama_experimenting_v1.0</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -42,41 +42,47 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\Camera.cs" />
-    <Compile Include="Common\obj\Debug\net461\Common.AssemblyInfo.cs" />
-    <Compile Include="Common\Shader.cs" />
-    <Compile Include="Common\Texture.cs" />
-    <Compile Include="Game.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Components\MainWindow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Components\Shaders\fragmentShader.frag" />
+    <None Include="Components\Shaders\vertexShader.vert" />
+    <None Include="OpenTK.dll.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Common\obj\Common.csproj.nuget.cache" />
-    <None Include="Common\obj\Common.csproj.nuget.dgspec.json" />
-    <None Include="Common\obj\Common.csproj.nuget.g.props" />
-    <None Include="Common\obj\Common.csproj.nuget.g.targets" />
-    <None Include="Common\obj\Debug\net461\Common.AssemblyInfoInputs.cache" />
-    <None Include="Common\obj\Debug\net461\Common.assets.cache" />
-    <None Include="Common\obj\Debug\net461\Common.csproj.CopyComplete" />
-    <None Include="Common\obj\project.assets.json" />
-    <None Include="OpenTK.dll.config" />
-    <None Include="packages.config" />
-    <None Include="shader.frag" />
-    <None Include="shader.vert" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Common\bin\Debug\net461\LearnOpenTK.Common.dll" />
-    <Content Include="Common\bin\Debug\net461\LearnOpenTK.Common.pdb" />
-    <Content Include="Common\bin\Debug\net461\OpenTK.dll" />
-    <Content Include="Common\obj\Debug\net461\Common.csproj.FileListAbsolute.txt" />
-    <Content Include="Common\obj\Debug\net461\LearnOpenTK.Common.dll" />
-    <Content Include="Common\obj\Debug\net461\LearnOpenTK.Common.pdb" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
