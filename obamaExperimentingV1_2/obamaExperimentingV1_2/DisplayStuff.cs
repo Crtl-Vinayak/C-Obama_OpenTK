@@ -50,9 +50,14 @@ namespace obamaExperimentingV1_2
             GL.LoadMatrix(ref modelview);
 
             GL.Begin(BeginMode.Triangles);
+
+            GL.Color3(Color.White);
             GL.Vertex3(-1.0f, -1.0f, 4.0f);
+            GL.Color3(Color.Blue);
             GL.Vertex3(1.0f, -1.0f, 4.0f);
+            GL.Color3(Color.DarkOrange);
             GL.Vertex3(0.0f, 1.0f, 4.0f);
+
             GL.End();
 
             Context.SwapBuffers();
