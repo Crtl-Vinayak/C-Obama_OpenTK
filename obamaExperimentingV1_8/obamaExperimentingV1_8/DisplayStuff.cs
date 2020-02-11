@@ -13,9 +13,24 @@ namespace obamaExperimentingV1_8
     class DisplayStuff : GameWindow
     {
 
-        Dictionary<string, ShaderProgram> shaders = new Dictionary<string, ShaderProgram>();
-        string activeShader = "default";
+        /**
+         * pgmID = program's ID
+         * vsID = vertexshader ID (stores address of this type shader).
+         * fsID = fragmentshader ID (stores address of this type shader).
+         */
+        int pgmID;
+        int vsID;
+        int fsID;
 
+        /**
+         * geen idee wat deze 8 variabelen zijn ):
+         */
+        int attribute_vcol;
+        int attribute_vpos;
+        int uniform_mview;
+        int vbo_position;
+        int vbo_color;
+        int vbo_mview;
         Vector3[] vertdata;
         Vector3[] coldata;
 
@@ -32,7 +47,7 @@ namespace obamaExperimentingV1_8
 
         public DisplayStuff() : base(1280, 720, new GraphicsMode(32, 24, 0, 4))
         {
-            Title = "Obama Master OpenTK Yeeten";
+            Title = "Obama Master OpenTK Yeasdfaseten";
         }
 
         protected override void OnResize(EventArgs e)
@@ -82,16 +97,17 @@ namespace obamaExperimentingV1_8
             indicedata = inds.ToArray();
             coldata = colors.ToArray();
 
-            GL.BindBuffer(BufferTarget.ArrayBuffer, shaders[activeShader].GetBuffer("vPosition"));
-
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vbo_position);
             GL.BufferData<Vector3>(BufferTarget.ArrayBuffer, (IntPtr)(vertdata.Length * Vector3.SizeInBytes), vertdata, BufferUsageHint.StaticDraw);
-            GL.VertexAttribPointer(shaders[activeShader].GetAttribute("vPosition"), 3, VertexAttribPointerType.Float, false, 0, 0);
+            GL.VertexAttribPointer(attribute_vpos, 3, VertexAttribPointerType.Float, false, 0, 0);
 
-            if (shaders[activeShader].GetAttribute("vColor") != -1) {
-                GL.BindBuffer(BufferTarget.ArrayBuffer, shaders[activeShader].GetBuffer("vColor"));
-                GL.BufferData<Vector3>(BufferTarget.ArrayBuffer, (IntPtr)(coldata.Length * Vector3.SizeInBytes), coldata, BufferUsageHint.StaticDraw);
-                GL.VertexAttribPointer(shaders[activeShader].GetAttribute("vColor"), 3, VertexAttribPointerType.Float, true, 0, 0);
-            }
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vbo_position);
+            GL.BufferData<Vector3>(BufferTarget.ArrayBuffer, (IntPtr)(vertdata.Length * Vector3.SizeInBytes), vertdata, BufferUsageHint.StaticDraw);
+            GL.VertexAttribPointer(attribute_vpos, 3, VertexAttribPointerType.Float, false, 0, 0);
+
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vbo_color);
+            GL.BufferData<Vector3>(BufferTarget.ArrayBuffer, (IntPtr)(coldata.Length * Vector3.SizeInBytes), coldata, BufferUsageHint.StaticDraw);
+            GL.VertexAttribPointer(attribute_vcol, 3, VertexAttribPointerType.Float, true, 0, 0);
 
             objects[0].Position = new Vector3(0.3f, -0.5f + (float)Math.Sin(time), -3.0f);
             objects[0].Rotation = new Vector3(0.55f * time, 0.25f * time, 0);
@@ -109,7 +125,7 @@ namespace obamaExperimentingV1_8
             objects[3].Rotation = new Vector3(-0.05f * time, -0.15f * time, 0);
             objects[3].Scale = new Vector3(0.9f, 0.9f, 0.9f);
 
-            GL.UseProgram(shaders[activeShader].ProgramID);
+            GL.UseProgram(pgmID);
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, ibo_elements);
@@ -130,20 +146,19 @@ namespace obamaExperimentingV1_8
             GL.Viewport(0, 0, Width, Height);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.Enable(EnableCap.DepthTest);
-
-            shaders[activeShader].EnableVertexAttribArrays();
-            //GL.EnableVertexAttribArray(attribute_vcol);
+            GL.EnableVertexAttribArray(attribute_vpos);
+            GL.EnableVertexAttribArray(attribute_vcol);
 
             int indiceat = 0;
 
             foreach (Volume v in objects) {
-                GL.UniformMatrix4(shaders[activeShader].GetUniform("modelview"), false, ref v.ModelViewProjectionMatrix);
+                GL.UniformMatrix4(uniform_mview, false, ref v.ModelViewProjectionMatrix);
                 GL.DrawElements(BeginMode.Triangles, v.IndiceCount, DrawElementsType.UnsignedInt, indiceat * sizeof(uint));
                 indiceat += v.IndiceCount;
             }
 
-            shaders[activeShader].DisableVertexAttribArrays();
-            //GL.DisableVertexAttribArray(attribute_vcol);
+            GL.DisableVertexAttribArray(attribute_vpos);
+            GL.DisableVertexAttribArray(attribute_vcol);
 
             GL.Flush();
             SwapBuffers();
@@ -154,14 +169,41 @@ namespace obamaExperimentingV1_8
             lastMousePos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
             CursorVisible = false;
 
-            GL.GenBuffers(1, out ibo_elements);
+            pgmID = GL.CreateProgram();
+            loadShader("Shaders/vs.glsl", ShaderType.VertexShader, pgmID, out vsID);
+            loadShader("Shaders/fs.glsl", ShaderType.FragmentShader, pgmID, out fsID);
+            GL.LinkProgram(pgmID);
+            Console.WriteLine(GL.GetProgramInfoLog(pgmID));
 
-            shaders.Add("default", new ShaderProgram("Shaders/vs.glsl", "Shaders/fs.glsl", true));
+            GL.GenBuffers(1, out vbo_position);
+            GL.GenBuffers(1, out vbo_color);
+            GL.GenBuffers(1, out vbo_mview);
+
+            attribute_vpos = GL.GetAttribLocation(pgmID, "vPosition");
+            attribute_vcol = GL.GetAttribLocation(pgmID, "vColor");
+            uniform_mview = GL.GetUniformLocation(pgmID, "modelview");
+
+            if (attribute_vpos == -1 || attribute_vcol == -1 || uniform_mview == -1) {
+                Console.WriteLine("Error binding attributes");
+            }
+
+            GL.GenBuffers(1, out ibo_elements);
 
             objects.Add(new Cube());
             objects.Add(new Cube());
             objects.Add(new Sierpinski());
             objects.Add(new Sierpinski(4));
+        }
+
+        void loadShader(string filename, ShaderType type, int program, out int address)
+        {
+            address = GL.CreateShader(type);
+            using (StreamReader sr = new StreamReader(filename)) {
+                GL.ShaderSource(address, sr.ReadToEnd());
+            }
+            GL.CompileShader(address);
+            GL.AttachShader(program, address);
+            Console.WriteLine(GL.GetShaderInfoLog(address));
         }
 
         private void ProcessInput()
