@@ -40,7 +40,7 @@ namespace obamaExperimentingV1_11
             program["view_matrix"].SetValue(Matrix4.LookAt(new Vector3(0, 0, 10), Vector3.Zero, new Vector3(0, 1, 0)));
 
             // load a crate texture
-            crateTexture = new Texture("res/crate.jpg");
+            crateTexture = new Texture("res/willem_side.png");
 
             // create a crate with vertices and UV coordinates
             cube = new VBO<Vector3>(new Vector3[] {
@@ -104,7 +104,7 @@ namespace obamaExperimentingV1_11
 
             // bind the vertex positions, UV coordinates and element array
             Gl.BindBufferToShaderAttribute(cube, program, "vertexPosition");
-            Gl.BindBufferToShaderAttribute(cubeUV, program, "vertexUV");
+            //Gl.BindBufferToShaderAttribute(cubeUV, program, "vertexUV");
             Gl.BindBuffer(cubeQuads);
 
             // draw the textured cube
