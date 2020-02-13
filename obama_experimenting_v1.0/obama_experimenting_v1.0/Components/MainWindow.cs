@@ -14,81 +14,86 @@ namespace obama_experimenting_v1._0.Components
 {
     public sealed class MainWindow : GameWindow
     {
-
+        private readonly string _title;
         private int _program;
-        private int _vertexArray;
         private double _time;
+        private List<RenderObject> _renderObjects = new List<RenderObject>();
 
-        public MainWindow() :base(1280, 720, GraphicsMode.Default, "asdf", GameWindowFlags.Default, DisplayDevice.Default, 4, 0, GraphicsContextFlags.ForwardCompatible)
+        public MainWindow()
+            : base(750, // initial width
+                500, // initial height
+                GraphicsMode.Default,
+                "",  // initial title
+                GameWindowFlags.Default,
+                DisplayDevice.Default,
+                4, // OpenGL major version
+                5, // OpenGL minor version
+                GraphicsContextFlags.ForwardCompatible)
         {
-            Title += ": OpenGL Version: " + GL.GetString(StringName.Version);
+            _title += "dreamstatecoding.blogspot.com: OpenGL Version: " + GL.GetString(StringName.Version);
+        }
+        protected override void OnResize(EventArgs e)
+        {
+            GL.Viewport(0, 0, Width, Height);
+        }
+
+
+        protected override void OnLoad(EventArgs e)
+        {
+            Vertex[] vertices =
+            {
+                new Vertex(new Vector4(-0.25f, 0.25f, 0.5f, 1-0f), Color4.HotPink),
+                new Vertex(new Vector4( 0.0f, -0.25f, 0.5f, 1-0f), Color4.HotPink),
+                new Vertex(new Vector4( 0.25f, 0.25f, 0.5f, 1-0f), Color4.HotPink),
+            };
+            _renderObjects.Add(new RenderObject(vertices));
+
+            CursorVisible = true;
+
+            _program = CreateProgram();
+            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
+            GL.PatchParameter(PatchParameterInt.PatchVertices, 3);
+            Closed += OnClosed;
+        }
+
+        private void OnClosed(object sender, EventArgs eventArgs)
+        {
+            Exit();
         }
 
         public override void Exit()
         {
-            GL.DeleteVertexArrays(1, ref _vertexArray);
+            Debug.WriteLine("Exit called");
+            foreach (var obj in _renderObjects)
+                obj.Dispose();
             GL.DeleteProgram(_program);
             base.Exit();
         }
 
-        protected override void OnResize(EventArgs e)
+        private int CreateProgram()
         {
-            GL.Viewport(0, 0, Width, Height);
-            base.OnResize(e);
-        }
+            try {
+                var program = GL.CreateProgram();
+                var shaders = new List<int>();
+                shaders.Add(CompileShader(ShaderType.VertexShader, @"Shaders\1Vert\simplePipeVert.c"));
+                shaders.Add(CompileShader(ShaderType.FragmentShader, @"Shaders\5Frag\simplePipeFrag.c"));
 
-        protected override void OnLoad(EventArgs e)
-        {
-            CursorVisible = true;
-            _program = CreateProgram();
-            GL.GenVertexArrays(1, out _vertexArray);
-            GL.BindVertexArray(_vertexArray);
-            Closed += OnClosed;
-            base.OnLoad(e);
-        }
+                foreach (var shader in shaders)
+                    GL.AttachShader(program, shader);
+                GL.LinkProgram(program);
+                var info = GL.GetProgramInfoLog(program);
+                if (!string.IsNullOrWhiteSpace(info))
+                    throw new Exception($"CompileShaders ProgramLinking had errors: {info}");
 
-        protected override void OnUpdateFrame(FrameEventArgs e)
-        {
-            HandleKeyboard();
-            base.OnUpdateFrame(e);
-        }
-
-        protected override void OnRenderFrame(FrameEventArgs e)
-        {
-            _time += e.Time;
-            Title = $"(Vsync: {VSync}) FPS: {1f / e.Time:0}";
-
-            Color4 backColor;
-            backColor.A = 1.0f;
-            backColor.R = 0.1f;
-            backColor.B = 0.4f;
-            backColor.G = 0.3f;
-            GL.ClearColor(backColor);
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
-            GL.UseProgram(_program);
-
-            // add some attributes for shaders here (:
-            GL.VertexAttrib1(0, _time);
-            Vector4 position;
-            position.X = (float)Math.Sin(_time) * 0.5f;
-            position.Y = (float)Math.Cos(_time) * 0.5f;
-            position.Z = 0.0f;
-            position.W = 1.0f;
-            GL.VertexAttrib4(1, position);
-
-            GL.DrawArrays(PrimitiveType.Points, 0, 1);
-            GL.PointSize(10);
-            SwapBuffers();
-
-            base.OnRenderFrame(e);
-        }
-
-        private void HandleKeyboard()
-        {
-            var keyState = Keyboard.GetState();
-            if (keyState.IsKeyDown(Key.Escape)) {
-                Exit();
+                foreach (var shader in shaders) {
+                    GL.DetachShader(program, shader);
+                    GL.DeleteShader(shader);
+                }
+                return program;
+            }
+            catch (Exception ex) {
+                Debug.WriteLine(ex.ToString());
+                throw;
             }
         }
 
@@ -99,33 +104,41 @@ namespace obama_experimenting_v1._0.Components
             GL.ShaderSource(shader, src);
             GL.CompileShader(shader);
             var info = GL.GetShaderInfoLog(shader);
-            if(!string.IsNullOrWhiteSpace(info)) {
-                Debug.WriteLine($"GL.CompileShader [{type}] had info log: {info}");
-            }
+            if (!string.IsNullOrWhiteSpace(info))
+                throw new Exception($"CompileShader {type} had errors: {info}");
             return shader;
         }
 
-        private int CreateProgram()
-        {
-            var program = GL.CreateProgram();
-            var shaders = new List<int>();
-            shaders.Add(CompileShader(ShaderType.VertexShader, @"Shaders\1Vert\vertexShader.c"));
-            shaders.Add(CompileShader(ShaderType.FragmentShader, @"Shaders\5Frag\fragmentShader.c"));
 
-            foreach(var shader in shaders) {
-                GL.AttachShader(program, shader);
+        protected override void OnUpdateFrame(FrameEventArgs e)
+        {
+            HandleKeyboard();
+        }
+        private void HandleKeyboard()
+        {
+            var keyState = Keyboard.GetState();
+
+            if (keyState.IsKeyDown(Key.Escape)) {
+                Exit();
             }
-            GL.LinkProgram(program);
-            foreach(var shader in shaders) {
-                GL.DetachShader(program, shader);
-                GL.DeleteShader(shader);
-            }
-            return program;
+        }
+        protected override void OnRenderFrame(FrameEventArgs e)
+        {
+            _time += e.Time;
+            Title = $"{_title}: (Vsync: {VSync}) FPS: {1f / e.Time:0}";
+            Color4 backColor;
+            backColor.A = 1.0f;
+            backColor.R = 0.1f;
+            backColor.G = 0.1f;
+            backColor.B = 0.3f;
+            GL.ClearColor(backColor);
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+
+            GL.UseProgram(_program);
+            foreach (var renderObject in _renderObjects)
+                renderObject.Render();
+            SwapBuffers();
         }
 
-        private void OnClosed(object sender, EventArgs eventArgs)
-        {
-            Exit();
-        }
     }
 }
