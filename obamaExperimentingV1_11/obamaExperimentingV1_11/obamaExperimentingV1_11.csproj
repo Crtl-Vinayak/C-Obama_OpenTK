@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\freeglut.dll" />
+    <Content Include="bin\Debug\res\willem_side.png" />
     <Content Include="libs\freeglut.dll" />
     <Content Include="libs\OpenGL.dll" />
     <Content Include="libs\Tao.FreeGlut.dll" />

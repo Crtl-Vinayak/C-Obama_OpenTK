@@ -42,7 +42,7 @@ namespace SQL_input
             vars.Password = tbx_password.Text;
             vars.Port = tbx_port.Text;
             login.DBconnect(vars.Ipadress, vars.Port, vars.Username, vars.Password, vars.Database);
-            login.isConected();
+            //login.isConected();
 
         }
     }

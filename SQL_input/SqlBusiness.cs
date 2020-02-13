@@ -15,36 +15,38 @@ namespace SQL_input
     public class SqlBusiness
     {
         static string MySQLConnectionString;
+        MySqlConnection DBconnection;
         public object DBconnect(string ipadd, string port, string username, string password, string dbname)
         {
             MySQLConnectionString = "datasource=" + ipadd + ";port=" + port + ";username=" + username + ";password=" + password + ";database=" + dbname;
 
             try
             {
-                MySqlConnection DBconnection = new MySqlConnection(MySQLConnectionString);
+                DBconnection = new MySqlConnection(MySQLConnectionString);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e + "\n" + "Null error bij MySQLConnectionString.");
             }
 
+            Console.WriteLine(MySQLConnectionString);
+            Console.ReadLine();
             return MySQLConnectionString;
         }
 
-        public bool isConected()
-        {
-            if (DBconnection.State == ConnectionState.Closed)
-            {
-                DBconnection.Open();
-                MessageBox.Show("Connection sucsessfull");
-                return true;
-            }
-            else if (DBconnection.State == ConnectionState.Open)
-            {
-                MessageBox.Show("Connection already open");
-                return true;
-            }
-            else return false;
-        }
+        //public bool isConected()
+        //{
+
+        //    if (DbConnection.State == ConnectionState.Closed) {
+        //        DBconnection.Open();
+        //        MessageBox.Show("Connection sucsessfull");
+        //        return true;
+        //    }
+        //    else if (DbConnection.State == ConnectionState.Open) {
+        //        MessageBox.Show("Connection already open");
+        //        return true;
+        //    }
+        //    else return false;
+        //}
     }
 }

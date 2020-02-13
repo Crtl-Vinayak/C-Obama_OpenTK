@@ -104,7 +104,7 @@ namespace obamaExperimentingV1_11
 
             // bind the vertex positions, UV coordinates and element array
             Gl.BindBufferToShaderAttribute(cube, program, "vertexPosition");
-            //Gl.BindBufferToShaderAttribute(cubeUV, program, "vertexUV");
+            Gl.BindBufferToShaderAttribute(cubeUV, program, "vertexUV");
             Gl.BindBuffer(cubeQuads);
 
             // draw the textured cube
