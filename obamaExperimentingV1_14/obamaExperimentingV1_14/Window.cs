@@ -10,7 +10,9 @@ namespace obamaExperimentingV1_14
     class Window : GameWindow
     {
 
-        public Window(int width, int height, GraphicsMode graphicsMode, string title, GameWindowFlags gameWindowFlags, DisplayDevice displayDevice)
+        Texture2D texture;
+
+        public Window(int width, int height, string title, DisplayDevice displayDevice)
             : base(width, height, GraphicsMode.Default, title, GameWindowFlags.Default, displayDevice)
         {
 
@@ -19,7 +21,17 @@ namespace obamaExperimentingV1_14
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            GL.ClearColor(0.5f, 0.6f, 0.7f, 1.0f);
+            GL.ClearColor(Color.CornflowerBlue);
+
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+            GL.Enable(EnableCap.DepthTest);
+            GL.DepthFunc(DepthFunction.Lequal);
+
+            //texture stuff beneath...
+            GL.Enable(EnableCap.Texture2D);
+            texture = ContentPipe.LoadTexture("Textures/smile.png");
+
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
@@ -41,19 +53,19 @@ namespace obamaExperimentingV1_14
             base.OnRenderFrame(e);
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
-            GL.Color4(0.4, 0.6, 0.1, 1.0);
-            GL.Begin(PrimitiveType.Triangles);
-            GL.Vertex2(0, 0);
-            GL.Vertex2(1, 0);
-            GL.Vertex2(0, 1);
-            GL.End();
+            //GL.Color4(0.4, 0.6, 0.1, 1.0);
+            //GL.Begin(PrimitiveType.Triangles);
+            //GL.Vertex2(0, 0);
+            //GL.Vertex2(1, 0);
+            //GL.Vertex2(0, 1);
+            //GL.End();
 
-            GL.Color4(0.4, 0.2, 0.1, 1.0);
-            GL.Begin(PrimitiveType.Triangles);
-            GL.Vertex2(0, 0);
-            GL.Vertex2(-1, 0);
-            GL.Vertex2(0, -1);
-            GL.End();
+            //GL.Color4(0.4, 0.2, 0.1, 1.0);
+            //GL.Begin(PrimitiveType.Triangles);
+            //GL.Vertex2(0, 0);
+            //GL.Vertex2(-1, 0);
+            //GL.Vertex2(0, -1);
+            //GL.End();
 
             SwapBuffers();
         }

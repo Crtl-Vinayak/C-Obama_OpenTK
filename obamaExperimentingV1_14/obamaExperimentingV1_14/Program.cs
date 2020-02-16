@@ -1,5 +1,6 @@
 ﻿using OpenTK;
 using OpenTK.Graphics;
+//using System.Drawing;
 
 namespace obamaExperimentingV1_14
 {
@@ -7,7 +8,7 @@ namespace obamaExperimentingV1_14
     { 
         private static void Main(string[] args)
         {
-            using (var window = new Window(1280, 720, GraphicsMode.Default, "Obama Battlez CSharp Version", GameWindowFlags.Default, DisplayDevice.Default)) {
+            using (var window = new Window(1280, 720, "Obama Battlez CSharp Version", DisplayDevice.Default)) {
                 //window.Icon = new Icon("Resources/bruhstar (1).bmp");
                 window.Run(60.0f);
             }
