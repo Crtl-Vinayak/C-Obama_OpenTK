@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="Components\MainWindow.cs" />
     <Compile Include="Components\RenderObject.cs" />
+    <Compile Include="Components\Shaderu.cs" />
     <Compile Include="Components\Vertex.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -111,8 +112,8 @@
     <Content Include="bin\Debug\Resources\bruhstar.bmp" />
     <Content Include="bin\Debug\Resources\bruhstar.ico" />
     <Content Include="bin\Debug\Resources\bruhstar.png" />
-    <Content Include="bin\Debug\Shaders\cubeFragment1.c" />
-    <Content Include="bin\Debug\Shaders\cubeVertex1.c" />
+    <Content Include="bin\Debug\Shaders\simplePipeFrag.c" />
+    <Content Include="bin\Debug\Shaders\simplePipeVert.c" />
     <Content Include="bin\Debug\Textures\bruhstar.ico" />
     <Content Include="bin\Debug\Textures\smile.png" />
     <Content Include="bruhstar.ico" />

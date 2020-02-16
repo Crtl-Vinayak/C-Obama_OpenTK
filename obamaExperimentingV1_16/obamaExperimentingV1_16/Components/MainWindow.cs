@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using OpenTK;
+using OpenTK.Input;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL4;
 
@@ -24,8 +25,10 @@ namespace obamaExperimentingV1_16.Components
      */
     public sealed class MainWindow : GameWindow
     {
+        public int program;
+
         private readonly string title;
-        private int program;
+        private Shaderu shaderu;
         private double time;
         private List<RenderObject> renderObjects = new List<RenderObject>();
 
@@ -41,6 +44,8 @@ namespace obamaExperimentingV1_16.Components
 
         protected override void OnLoad(EventArgs e)
         {
+            CursorVisible = true;
+
             Vertex[] vertices =
             {
                 new Vertex(new Vector4(-0.25f, 0.25f, 0.5f, 1-0f), Color4.AliceBlue),
@@ -50,13 +55,27 @@ namespace obamaExperimentingV1_16.Components
 
             renderObjects.Add(new RenderObject(vertices));
 
+            //shader magic begins 1!
+            shaderu = new Shaderu();
+            program = shaderu.CreateProgram();
+            //end shader code 1!
+
             GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
             GL.PatchParameter(PatchParameterInt.PatchVertices, 3);
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
-            
+            HandleKeyBoard();
+        }
+
+        public void HandleKeyBoard()
+        {
+            var keyState = Keyboard.GetState();
+
+            if (keyState.IsKeyDown(Key.Escape)) {
+                Exit();
+            }
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
@@ -67,6 +86,10 @@ namespace obamaExperimentingV1_16.Components
             GL.ClearColor(Color.CornflowerBlue);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
+            //shader trickery Begin 2!
+            GL.UseProgram(program);
+            //shader trickery End 2!
+
             foreach (var renderStuff in renderObjects) {
                 renderStuff.Render();
             }
@@ -76,7 +99,13 @@ namespace obamaExperimentingV1_16.Components
 
         protected override void OnClosed(EventArgs e)
         {
+            Exit();
+        }
 
+        public override void Exit()
+        {
+            base.Exit();
+            Console.WriteLine("Exit is being called.");
         }
     }
 }
