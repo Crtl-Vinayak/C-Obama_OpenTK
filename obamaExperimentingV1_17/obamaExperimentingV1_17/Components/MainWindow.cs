@@ -67,7 +67,10 @@ namespace obamaExperimentingV1_17.Components
             var r1x = Matrix4.CreateRotationX(k * 13.0f);
             var r2y = Matrix4.CreateRotationY(k * 13.0f);
             var r3z = Matrix4.CreateRotationZ(k * 3.0f);
-            modelView = r1x * r2y * r3z;
+
+            var t1 = Matrix4.CreateTranslation((float) (Math.Sin(k * 5f) * 0.5f), (float) (Math.Cos(k * 5f) * 0.5f), 0f);
+
+            modelView = r1x * r2y * r3z * t1;
 
             HandleKeyBoard();
         }
