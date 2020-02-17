@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using System.IO;
 
 using OpenTK;
 using OpenTK.Input;
@@ -31,24 +33,37 @@ namespace obamaExperimentingV1_17.Components
         private Shaderu shaderu;
         private double time;
         private List<RenderObject> renderObjects = new List<RenderObject>();
-        private Matrix4 modelView;
+        private Matrix4 projectionMatrix;
+        //private Matrix4 modelView;
 
         public MainWindow() : base (1280, 720, GraphicsMode.Default, "", GameWindowFlags.Default, DisplayDevice.Default, 4, 6, GraphicsContextFlags.ForwardCompatible)
         {
             title += "Obama Battlez C# Edition // Version A_1.0.0 // OpenGL Version " + GL.GetString(StringName.Version);
         }
 
+        private void CreateProjection()
+        {
+            var aspectRatio = (float)Width / Height;
+            projectionMatrix = Matrix4.CreatePerspectiveFieldOfView(60 * ((float) Math.PI / 180f), aspectRatio, 0.1f, 400f);
+        }
+
         protected override void OnResize(EventArgs e)
         {
             GL.Viewport(0, 0, Width, Height);
+            CreateProjection();
         }
 
         protected override void OnLoad(EventArgs e)
         {
-            CursorVisible = true;
+            VSync = VSyncMode.Off;
+            CreateProjection();
 
-            Vertex[] vertices = ShapeObjectFactory.CreateSolidCube(0.2f, Color.Crimson);
-            renderObjects.Add(new RenderObject(vertices));
+            renderObjects.Add(new RenderObject(ShapeObjectFactory.CreateSolidCube(0.2f, Color.Crimson)));
+            renderObjects.Add(new RenderObject(ShapeObjectFactory.CreateSolidCube(0.2f, Color.Blue)));
+            renderObjects.Add(new RenderObject(ShapeObjectFactory.CreateSolidCube(0.2f, Color.Yellow)));
+            renderObjects.Add(new RenderObject(ShapeObjectFactory.CreateSolidCube(0.2f, Color.DarkGoldenrod)));
+
+            CursorVisible = true;
 
             //shader magic begins 1!
             shaderu = new Shaderu();
@@ -57,21 +72,12 @@ namespace obamaExperimentingV1_17.Components
 
             GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
             GL.PatchParameter(PatchParameterInt.PatchVertices, 3);
+            GL.Enable(EnableCap.DepthTest);
+            Closed += OnClosed;
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
-
-            time += e.Time;
-            var k = (float)time * 0.05f;
-            var r1x = Matrix4.CreateRotationX(k * 13.0f);
-            var r2y = Matrix4.CreateRotationY(k * 13.0f);
-            var r3z = Matrix4.CreateRotationZ(k * 3.0f);
-
-            var t1 = Matrix4.CreateTranslation((float) (Math.Sin(k * 5f) * 0.5f), (float) (Math.Cos(k * 5f) * 0.5f), 0f);
-
-            modelView = r1x * r2y * r3z * t1;
-
             HandleKeyBoard();
         }
 
@@ -92,16 +98,28 @@ namespace obamaExperimentingV1_17.Components
             GL.ClearColor(Color.CornflowerBlue);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            //shader trickery Begin 2!
             GL.UseProgram(program);
-            //shader trickery End 2!
-
-            GL.UniformMatrix4(20, false, ref modelView);
-
+            GL.UniformMatrix4(20, false, ref projectionMatrix);
+            float c = 0f;
             foreach (var renderStuff in renderObjects) {
-                renderStuff.Render();
-            }
+                renderStuff.Bind();
+                for (int i = 0; i < 5; i++) {
+                    var k = i + (float)(time * (0.05f + (0.1 * c)));
+                    var t2 = Matrix4.CreateTranslation(
+                        (float)(Math.Sin(k * 5f) * (c + 0.5f)),
+                        (float)(Math.Cos(k * 5f) * (c + 0.5f)),
+                        -2.7f);
+                    var r1x = Matrix4.CreateRotationX(k * 13.0f + i);
+                    var r2y = Matrix4.CreateRotationY(k * 13.0f + i);
+                    var r3z = Matrix4.CreateRotationZ(k * 3.0f + i);
 
+                    var modelView = r1x * r2y * r3z * t2;
+                    GL.UniformMatrix4(21, false, ref modelView);
+                    renderStuff.Render();
+                }
+                c += 0.3f;
+            }
+            GL.PointSize(10);
             SwapBuffers();
         }
 
@@ -110,10 +128,19 @@ namespace obamaExperimentingV1_17.Components
             Exit();
         }
 
+        private void OnClosed(object sender, EventArgs eventArgs)
+        {
+            Exit();
+        }
+
         public override void Exit()
         {
+            Debug.WriteLine("Exit called.");
+            foreach(var obj in renderObjects) {
+                obj.Dispose();
+            }
+            GL.DeleteProgram(program);
             base.Exit();
-            Console.WriteLine("Exit is being called.");
         }
     }
 }

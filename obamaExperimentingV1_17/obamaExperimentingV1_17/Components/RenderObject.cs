@@ -32,9 +32,13 @@ namespace obamaExperimentingV1_17.Components
             isInitialized = true;
         }
 
-        public void Render()
+        public void Bind()
         {
             GL.BindVertexArray(vertexArray);
+        }
+
+        public void Render()
+        {
             GL.DrawArrays(PrimitiveType.Triangles, 0, verticeCount);
         }
 
