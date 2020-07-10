@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "obamaExperimentingV1_15", "obamaExperimentingV1_15\obamaExperimentingV1_15.csproj", "{4DB0E378-21B8-4B9E-BF8C-AFBBB52F00CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4DB0E378-21B8-4B9E-BF8C-AFBBB52F00CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DB0E378-21B8-4B9E-BF8C-AFBBB52F00CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DB0E378-21B8-4B9E-BF8C-AFBBB52F00CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DB0E378-21B8-4B9E-BF8C-AFBBB52F00CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7A22B64B-570D-44F9-AE45-6F346B32001E}
+	EndGlobalSection
+EndGlobal
