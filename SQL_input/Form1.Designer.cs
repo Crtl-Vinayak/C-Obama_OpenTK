@@ -1,6 +1,6 @@
 ﻿namespace SQL_input
 {
-    partial class Form1
+    partial class Main_Form
     {
         /// <summary>
         /// Required designer variable.
@@ -28,182 +28,161 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tbx_roepnaam = new System.Windows.Forms.TextBox();
-            this.tbx_voorletters = new System.Windows.Forms.TextBox();
-            this.tbx_tussenvoegsels = new System.Windows.Forms.TextBox();
-            this.tbx_lastname = new System.Windows.Forms.TextBox();
-            this.tbx_zipcode = new System.Windows.Forms.TextBox();
-            this.tbx_cityname = new System.Windows.Forms.TextBox();
-            this.tbx_telefoon = new System.Windows.Forms.TextBox();
-            this.tbx_birthdate = new System.Windows.Forms.TextBox();
-            this.tbx_uitgeschreven = new System.Windows.Forms.TextBox();
-            this.tbx_schoolgeld = new System.Windows.Forms.TextBox();
-            this.tbx_paid = new System.Windows.Forms.TextBox();
-            this.tbx_adres = new System.Windows.Forms.TextBox();
-            this.cmb_gender = new System.Windows.Forms.ComboBox();
             this.btn_submit = new System.Windows.Forms.Button();
+            this.tbx_command = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dgv_qeuryresult = new System.Windows.Forms.DataGridView();
+            this.btn_edit = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.generalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.switchDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_export_excel = new System.Windows.Forms.Button();
+            this.btn_export_txt = new System.Windows.Forms.Button();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_qeuryresult)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // tbx_roepnaam
-            // 
-            this.tbx_roepnaam.Location = new System.Drawing.Point(42, 38);
-            this.tbx_roepnaam.Multiline = true;
-            this.tbx_roepnaam.Name = "tbx_roepnaam";
-            this.tbx_roepnaam.Size = new System.Drawing.Size(304, 32);
-            this.tbx_roepnaam.TabIndex = 0;
-            // 
-            // tbx_voorletters
-            // 
-            this.tbx_voorletters.Location = new System.Drawing.Point(42, 106);
-            this.tbx_voorletters.Multiline = true;
-            this.tbx_voorletters.Name = "tbx_voorletters";
-            this.tbx_voorletters.Size = new System.Drawing.Size(149, 32);
-            this.tbx_voorletters.TabIndex = 1;
-            // 
-            // tbx_tussenvoegsels
-            // 
-            this.tbx_tussenvoegsels.Location = new System.Drawing.Point(197, 106);
-            this.tbx_tussenvoegsels.Multiline = true;
-            this.tbx_tussenvoegsels.Name = "tbx_tussenvoegsels";
-            this.tbx_tussenvoegsels.Size = new System.Drawing.Size(149, 32);
-            this.tbx_tussenvoegsels.TabIndex = 2;
-            // 
-            // tbx_lastname
-            // 
-            this.tbx_lastname.Location = new System.Drawing.Point(42, 176);
-            this.tbx_lastname.Multiline = true;
-            this.tbx_lastname.Name = "tbx_lastname";
-            this.tbx_lastname.Size = new System.Drawing.Size(304, 32);
-            this.tbx_lastname.TabIndex = 3;
-            // 
-            // tbx_zipcode
-            // 
-            this.tbx_zipcode.Location = new System.Drawing.Point(42, 323);
-            this.tbx_zipcode.Multiline = true;
-            this.tbx_zipcode.Name = "tbx_zipcode";
-            this.tbx_zipcode.Size = new System.Drawing.Size(149, 32);
-            this.tbx_zipcode.TabIndex = 4;
-            // 
-            // tbx_cityname
-            // 
-            this.tbx_cityname.Location = new System.Drawing.Point(197, 323);
-            this.tbx_cityname.Multiline = true;
-            this.tbx_cityname.Name = "tbx_cityname";
-            this.tbx_cityname.Size = new System.Drawing.Size(149, 32);
-            this.tbx_cityname.TabIndex = 5;
-            // 
-            // tbx_telefoon
-            // 
-            this.tbx_telefoon.Location = new System.Drawing.Point(197, 395);
-            this.tbx_telefoon.Multiline = true;
-            this.tbx_telefoon.Name = "tbx_telefoon";
-            this.tbx_telefoon.Size = new System.Drawing.Size(149, 32);
-            this.tbx_telefoon.TabIndex = 7;
-            // 
-            // tbx_birthdate
-            // 
-            this.tbx_birthdate.Location = new System.Drawing.Point(42, 465);
-            this.tbx_birthdate.Multiline = true;
-            this.tbx_birthdate.Name = "tbx_birthdate";
-            this.tbx_birthdate.Size = new System.Drawing.Size(304, 32);
-            this.tbx_birthdate.TabIndex = 8;
-            // 
-            // tbx_uitgeschreven
-            // 
-            this.tbx_uitgeschreven.Location = new System.Drawing.Point(42, 527);
-            this.tbx_uitgeschreven.Multiline = true;
-            this.tbx_uitgeschreven.Name = "tbx_uitgeschreven";
-            this.tbx_uitgeschreven.Size = new System.Drawing.Size(304, 32);
-            this.tbx_uitgeschreven.TabIndex = 9;
-            // 
-            // tbx_schoolgeld
-            // 
-            this.tbx_schoolgeld.Location = new System.Drawing.Point(42, 588);
-            this.tbx_schoolgeld.Multiline = true;
-            this.tbx_schoolgeld.Name = "tbx_schoolgeld";
-            this.tbx_schoolgeld.Size = new System.Drawing.Size(149, 32);
-            this.tbx_schoolgeld.TabIndex = 10;
-            // 
-            // tbx_paid
-            // 
-            this.tbx_paid.Location = new System.Drawing.Point(197, 588);
-            this.tbx_paid.Multiline = true;
-            this.tbx_paid.Name = "tbx_paid";
-            this.tbx_paid.Size = new System.Drawing.Size(149, 32);
-            this.tbx_paid.TabIndex = 11;
-            // 
-            // tbx_adres
-            // 
-            this.tbx_adres.Location = new System.Drawing.Point(42, 250);
-            this.tbx_adres.Multiline = true;
-            this.tbx_adres.Name = "tbx_adres";
-            this.tbx_adres.Size = new System.Drawing.Size(304, 32);
-            this.tbx_adres.TabIndex = 12;
-            // 
-            // cmb_gender
-            // 
-            this.cmb_gender.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.cmb_gender.FormattingEnabled = true;
-            this.cmb_gender.Location = new System.Drawing.Point(42, 395);
-            this.cmb_gender.MinimumSize = new System.Drawing.Size(149, 0);
-            this.cmb_gender.Name = "cmb_gender";
-            this.cmb_gender.Size = new System.Drawing.Size(149, 33);
-            this.cmb_gender.TabIndex = 13;
             // 
             // btn_submit
             // 
-            this.btn_submit.Location = new System.Drawing.Point(42, 626);
+            this.btn_submit.Location = new System.Drawing.Point(1111, 108);
             this.btn_submit.Name = "btn_submit";
             this.btn_submit.Size = new System.Drawing.Size(149, 41);
             this.btn_submit.TabIndex = 14;
-            this.btn_submit.Text = "Send";
+            this.btn_submit.Text = "Execute Command";
             this.btn_submit.UseVisualStyleBackColor = true;
             this.btn_submit.Click += new System.EventHandler(this.btn_submit_Click);
             // 
-            // Form1
+            // tbx_command
+            // 
+            this.tbx_command.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.tbx_command.Location = new System.Drawing.Point(169, 108);
+            this.tbx_command.Multiline = true;
+            this.tbx_command.Name = "tbx_command";
+            this.tbx_command.Size = new System.Drawing.Size(936, 37);
+            this.tbx_command.TabIndex = 17;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
+            this.label1.Location = new System.Drawing.Point(492, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(261, 31);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Input SQL command";
+            // 
+            // dgv_qeuryresult
+            // 
+            this.dgv_qeuryresult.AllowUserToAddRows = false;
+            this.dgv_qeuryresult.AllowUserToDeleteRows = false;
+            this.dgv_qeuryresult.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgv_qeuryresult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_qeuryresult.Location = new System.Drawing.Point(198, 295);
+            this.dgv_qeuryresult.Name = "dgv_qeuryresult";
+            this.dgv_qeuryresult.ReadOnly = true;
+            this.dgv_qeuryresult.Size = new System.Drawing.Size(931, 267);
+            this.dgv_qeuryresult.TabIndex = 19;
+            // 
+            // btn_edit
+            // 
+            this.btn_edit.Location = new System.Drawing.Point(198, 164);
+            this.btn_edit.Name = "btn_edit";
+            this.btn_edit.Size = new System.Drawing.Size(157, 45);
+            this.btn_edit.TabIndex = 20;
+            this.btn_edit.Text = "Edit data";
+            this.btn_edit.UseVisualStyleBackColor = true;
+            this.btn_edit.Click += new System.EventHandler(this.btn_edit_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.generalToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1269, 24);
+            this.menuStrip1.TabIndex = 21;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // generalToolStripMenuItem
+            // 
+            this.generalToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.switchDatabaseToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.generalToolStripMenuItem.Name = "generalToolStripMenuItem";
+            this.generalToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.generalToolStripMenuItem.Text = "General";
+            // 
+            // switchDatabaseToolStripMenuItem
+            // 
+            this.switchDatabaseToolStripMenuItem.Name = "switchDatabaseToolStripMenuItem";
+            this.switchDatabaseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.switchDatabaseToolStripMenuItem.Text = "Switch Database";
+            this.switchDatabaseToolStripMenuItem.Click += new System.EventHandler(this.switchDatabaseToolStripMenuItem_Click);
+            // 
+            // btn_export_excel
+            // 
+            this.btn_export_excel.Location = new System.Drawing.Point(405, 164);
+            this.btn_export_excel.Name = "btn_export_excel";
+            this.btn_export_excel.Size = new System.Drawing.Size(157, 45);
+            this.btn_export_excel.TabIndex = 22;
+            this.btn_export_excel.Text = "Export Table to Excel";
+            this.btn_export_excel.UseVisualStyleBackColor = true;
+            // 
+            // btn_export_txt
+            // 
+            this.btn_export_txt.Location = new System.Drawing.Point(596, 164);
+            this.btn_export_txt.Name = "btn_export_txt";
+            this.btn_export_txt.Size = new System.Drawing.Size(157, 45);
+            this.btn_export_txt.TabIndex = 23;
+            this.btn_export_txt.Text = "Export Table to txt";
+            this.btn_export_txt.UseVisualStyleBackColor = true;
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // Main_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.ClientSize = new System.Drawing.Size(391, 689);
+            this.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.ClientSize = new System.Drawing.Size(1269, 673);
+            this.Controls.Add(this.btn_export_txt);
+            this.Controls.Add(this.btn_export_excel);
+            this.Controls.Add(this.btn_edit);
+            this.Controls.Add(this.dgv_qeuryresult);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.tbx_command);
             this.Controls.Add(this.btn_submit);
-            this.Controls.Add(this.cmb_gender);
-            this.Controls.Add(this.tbx_adres);
-            this.Controls.Add(this.tbx_paid);
-            this.Controls.Add(this.tbx_schoolgeld);
-            this.Controls.Add(this.tbx_uitgeschreven);
-            this.Controls.Add(this.tbx_birthdate);
-            this.Controls.Add(this.tbx_telefoon);
-            this.Controls.Add(this.tbx_cityname);
-            this.Controls.Add(this.tbx_zipcode);
-            this.Controls.Add(this.tbx_lastname);
-            this.Controls.Add(this.tbx_tussenvoegsels);
-            this.Controls.Add(this.tbx_voorletters);
-            this.Controls.Add(this.tbx_roepnaam);
-            this.Name = "Form1";
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
+            this.Name = "Main_Form";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_qeuryresult)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox tbx_roepnaam;
-        private System.Windows.Forms.TextBox tbx_voorletters;
-        private System.Windows.Forms.TextBox tbx_tussenvoegsels;
-        private System.Windows.Forms.TextBox tbx_lastname;
-        private System.Windows.Forms.TextBox tbx_zipcode;
-        private System.Windows.Forms.TextBox tbx_cityname;
-        private System.Windows.Forms.TextBox tbx_telefoon;
-        private System.Windows.Forms.TextBox tbx_birthdate;
-        private System.Windows.Forms.TextBox tbx_uitgeschreven;
-        private System.Windows.Forms.TextBox tbx_schoolgeld;
-        private System.Windows.Forms.TextBox tbx_paid;
-        private System.Windows.Forms.TextBox tbx_adres;
-        private System.Windows.Forms.ComboBox cmb_gender;
         private System.Windows.Forms.Button btn_submit;
+        private System.Windows.Forms.TextBox tbx_command;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dgv_qeuryresult;
+        private System.Windows.Forms.Button btn_edit;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem generalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem switchDatabaseToolStripMenuItem;
+        private System.Windows.Forms.Button btn_export_excel;
+        private System.Windows.Forms.Button btn_export_txt;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 

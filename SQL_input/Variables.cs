@@ -1,110 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SQL_input
 
 {
    public class Variables
     {
-        //variabelen voor de textboxen
-        private static string roepnaam = "";
-        private static string voorletters = "";
-        private static string tussenvoegsels = "";
-        private static string achternaam = "";
-        private static string adres = "";
-        private static string postcode = "";
-        private static string woonplaats = "";
-        private static string telefoon = "";
-        private static string geboortedatum = "";
-        private static string uitgeschreven = "";
-        private static string schoolgeld = "";
-        private static string betaald = "";
+        //variabelen voor de main window
+        private static string sqlCommand = "";
+        private static DataTable dataTable = new DataTable();
+
 
         //variabelen SQL connectie
         private static string ipaddress = "";
         private static string port = "";
         private static string username = "";
         private static string password = "";
-        public static string database = "";
-        public static string sqlconn = "";
+        private static string database = "";
 
         //getters & setters
-        public string Roepnaaam
+
+        public DataTable DataTable
         {
-            get { return roepnaam; }
-            set { roepnaam = value; }
+           get { return dataTable; }
+           set { dataTable = value; }
+        }
+        public string Sqlcommand
+        {
+            get { return sqlCommand; }
+            set { sqlCommand = value; }
         }
 
-        public string Voorletters
-        {
-            get { return voorletters; }
-            set { voorletters = value; }
-        }
-
-        public string Tussenvoegsels
-        {
-            get { return tussenvoegsels; }
-            set { tussenvoegsels = value; }
-        }
-
-        public string Achternaam
-        {
-            get { return achternaam; }
-            set { achternaam = value; }
-        }
-
-        public string Adres
-        {
-            get { return adres; }
-            set { adres = value; }
-        }
-
-        public string Postcode
-        {
-            get { return postcode; }
-            set { postcode = value; }
-        }
-
-        public string Woonplaats
-        {
-            get { return woonplaats; }
-            set { woonplaats = value; }
-        }
-
-        public string Telefoon
-        {
-            get { return telefoon; }
-            set { telefoon = value; }
-        }
-
-        public string Geboortedatum
-        {
-            get { return geboortedatum; }
-            set { geboortedatum = value; }
-        }
-
-        public string Uitgeschreven
-        {
-            get { return uitgeschreven; }
-            set { uitgeschreven = value; }
-        }
-
-        public string Schoolgeld
-        {
-            get { return schoolgeld; }
-            set { schoolgeld = value; }
-        }
-
-        public string Betaald
-        {
-            get { return betaald; }
-            set { betaald = value; }
-        }
-
-        //sql getters & setters
+        //connectie getters & setters
 
         public string Ipadress
         {
@@ -134,11 +66,6 @@ namespace SQL_input
         {
             get { return database; }
             set { database = value; }
-        }
-
-        public string Sqlconn
-        {
-            set { sqlconn = value; }
         }
     }
 }

@@ -40,6 +40,13 @@
             this.tbx_port = new System.Windows.Forms.TextBox();
             this.btn_login = new System.Windows.Forms.Button();
             this.btn_exit = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.generalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearAllFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loginOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveLoginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadLoginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -94,7 +101,7 @@
             // 
             // tbx_dbname
             // 
-            this.tbx_dbname.Location = new System.Drawing.Point(109, 19);
+            this.tbx_dbname.Location = new System.Drawing.Point(106, 29);
             this.tbx_dbname.Multiline = true;
             this.tbx_dbname.Name = "tbx_dbname";
             this.tbx_dbname.Size = new System.Drawing.Size(139, 28);
@@ -102,7 +109,7 @@
             // 
             // tbx_ipaddress
             // 
-            this.tbx_ipaddress.Location = new System.Drawing.Point(109, 54);
+            this.tbx_ipaddress.Location = new System.Drawing.Point(106, 64);
             this.tbx_ipaddress.Multiline = true;
             this.tbx_ipaddress.Name = "tbx_ipaddress";
             this.tbx_ipaddress.Size = new System.Drawing.Size(139, 28);
@@ -110,7 +117,7 @@
             // 
             // tbx_username
             // 
-            this.tbx_username.Location = new System.Drawing.Point(109, 89);
+            this.tbx_username.Location = new System.Drawing.Point(106, 99);
             this.tbx_username.Multiline = true;
             this.tbx_username.Name = "tbx_username";
             this.tbx_username.Size = new System.Drawing.Size(139, 28);
@@ -118,7 +125,7 @@
             // 
             // tbx_password
             // 
-            this.tbx_password.Location = new System.Drawing.Point(109, 123);
+            this.tbx_password.Location = new System.Drawing.Point(106, 133);
             this.tbx_password.Multiline = true;
             this.tbx_password.Name = "tbx_password";
             this.tbx_password.Size = new System.Drawing.Size(139, 28);
@@ -126,7 +133,7 @@
             // 
             // tbx_port
             // 
-            this.tbx_port.Location = new System.Drawing.Point(109, 157);
+            this.tbx_port.Location = new System.Drawing.Point(106, 167);
             this.tbx_port.Multiline = true;
             this.tbx_port.Name = "tbx_port";
             this.tbx_port.Size = new System.Drawing.Size(139, 28);
@@ -134,7 +141,7 @@
             // 
             // btn_login
             // 
-            this.btn_login.Location = new System.Drawing.Point(109, 191);
+            this.btn_login.Location = new System.Drawing.Point(97, 201);
             this.btn_login.Name = "btn_login";
             this.btn_login.Size = new System.Drawing.Size(75, 34);
             this.btn_login.TabIndex = 10;
@@ -144,7 +151,7 @@
             // 
             // btn_exit
             // 
-            this.btn_exit.Location = new System.Drawing.Point(190, 191);
+            this.btn_exit.Location = new System.Drawing.Point(178, 201);
             this.btn_exit.Name = "btn_exit";
             this.btn_exit.Size = new System.Drawing.Size(75, 34);
             this.btn_exit.TabIndex = 11;
@@ -152,12 +159,61 @@
             this.btn_exit.UseVisualStyleBackColor = true;
             this.btn_exit.Click += new System.EventHandler(this.btn_exit_Click);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.generalToolStripMenuItem,
+            this.loginOptionsToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(298, 24);
+            this.menuStrip1.TabIndex = 12;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // generalToolStripMenuItem
+            // 
+            this.generalToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearAllFieldsToolStripMenuItem});
+            this.generalToolStripMenuItem.Name = "generalToolStripMenuItem";
+            this.generalToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.generalToolStripMenuItem.Text = "General";
+            // 
+            // clearAllFieldsToolStripMenuItem
+            // 
+            this.clearAllFieldsToolStripMenuItem.Name = "clearAllFieldsToolStripMenuItem";
+            this.clearAllFieldsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.clearAllFieldsToolStripMenuItem.Text = "Clear all fields";
+            this.clearAllFieldsToolStripMenuItem.Click += new System.EventHandler(this.clearAllFieldsToolStripMenuItem_Click);
+            // 
+            // loginOptionsToolStripMenuItem
+            // 
+            this.loginOptionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveLoginToolStripMenuItem,
+            this.loadLoginToolStripMenuItem});
+            this.loginOptionsToolStripMenuItem.Name = "loginOptionsToolStripMenuItem";
+            this.loginOptionsToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
+            this.loginOptionsToolStripMenuItem.Text = "Login options";
+            // 
+            // saveLoginToolStripMenuItem
+            // 
+            this.saveLoginToolStripMenuItem.Name = "saveLoginToolStripMenuItem";
+            this.saveLoginToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.saveLoginToolStripMenuItem.Text = "Save login";
+            this.saveLoginToolStripMenuItem.Click += new System.EventHandler(this.saveLoginToolStripMenuItem_Click);
+            // 
+            // loadLoginToolStripMenuItem
+            // 
+            this.loadLoginToolStripMenuItem.Name = "loadLoginToolStripMenuItem";
+            this.loadLoginToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.loadLoginToolStripMenuItem.Text = "Load login";
+            this.loadLoginToolStripMenuItem.Click += new System.EventHandler(this.loadLoginToolStripMenuItem_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ClientSize = new System.Drawing.Size(551, 290);
+            this.ClientSize = new System.Drawing.Size(298, 290);
             this.Controls.Add(this.btn_exit);
             this.Controls.Add(this.btn_login);
             this.Controls.Add(this.tbx_port);
@@ -170,9 +226,13 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form2";
-            this.Text = "Form2";
+            this.Text = "Database tool - Login";
             this.Load += new System.EventHandler(this.Form2_Load);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -192,5 +252,11 @@
         private System.Windows.Forms.TextBox tbx_port;
         public System.Windows.Forms.Button btn_login;
         public System.Windows.Forms.Button btn_exit;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem generalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearAllFieldsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loginOptionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveLoginToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadLoginToolStripMenuItem;
     }
 }

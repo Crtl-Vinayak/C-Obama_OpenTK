@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,39 +15,43 @@ namespace SQL_input
 
     public class SqlBusiness
     {
-        static string MySQLConnectionString;
-        MySqlConnection DBconnection;
+        Variables vars = new Variables();
+       public static MySqlConnection DBconnection;
+        public static string MysqlConnentionString;
+        //Dynamisch verbinding maken met DB
         public object DBconnect(string ipadd, string port, string username, string password, string dbname)
         {
-            MySQLConnectionString = "datasource=" + ipadd + ";port=" + port + ";username=" + username + ";password=" + password + ";database=" + dbname;
+            MysqlConnentionString = "datasource=" + ipadd + ";port=" + port + ";username=" + username + ";password=" + password + ";database=" + dbname;
 
             try
             {
-                DBconnection = new MySqlConnection(MySQLConnectionString);
+                DBconnection = new MySqlConnection(MysqlConnentionString);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e + "\n" + "Null error bij MySQLConnectionString.");
+                MessageBox.Show(e + "\n" + "Null error bij MySQLConnectionString.", "Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
 
-            Console.WriteLine(MySQLConnectionString);
-            Console.ReadLine();
-            return MySQLConnectionString;
+            Console.WriteLine(MysqlConnentionString);
+            return MysqlConnentionString;
         }
-
-        //public bool isConected()
-        //{
-
-        //    if (DbConnection.State == ConnectionState.Closed) {
-        //        DBconnection.Open();
-        //        MessageBox.Show("Connection sucsessfull");
-        //        return true;
-        //    }
-        //    else if (DbConnection.State == ConnectionState.Open) {
-        //        MessageBox.Show("Connection already open");
-        //        return true;
-        //    }
-        //    else return false;
-        //}
+        public bool checkConn = false;
+        //kijken of de connectie van de DB open of dicht is
+        public bool isConected()
+        {
+            if (DBconnection.State == ConnectionState.Closed)
+            {
+                DBconnection.Open();
+                MessageBox.Show("Connection open");
+                checkConn = true;
+                return true;
+            }
+            else if (DBconnection.State == ConnectionState.Open)
+            {
+                checkConn = true;
+                return true;
+            }
+            else return false;
+        }
     }
 }
